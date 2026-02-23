@@ -30,6 +30,16 @@
                 placeholder="email@example.com"
             />
 
+            <flux:input 
+                wire:model="phone" 
+                id="phone" 
+                label="Teléfono de Contacto" 
+                type="tel" 
+                icon="phone" 
+                required 
+                placeholder="10 dígitos"
+            />
+
             <!-- Password -->
             <flux:input
                 name="password"
@@ -53,7 +63,7 @@
             />
 
             <div class="flex items-center justify-end">
-                <flux:button type="submit" variant="primary" class="w-full" data-test="register-user-button">
+                <flux:button type="submit" variant="primary" class="w-full bg-blue-700 hover:bg-blue-800" data-test="register-user-button">
                     {{ __('Create account') }}
                 </flux:button>
             </div>

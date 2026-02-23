@@ -14,7 +14,7 @@
             />
             <div class="grid flex-1 text-start text-sm leading-tight">
                 <flux:heading class="truncate">{{ auth()->user()?->name ?? 'Invitado' }}</flux:heading>
-                <flux:text class="truncate">{{ auth()->user()?->name ?? 'Invitado' }}</flux:text>
+                <flux:text size="xs" class="text-zinc-500">{{ auth()->user()->phone }}</flux:text>
             </div>
         </div>
         <flux:menu.separator />
