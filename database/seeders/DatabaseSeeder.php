@@ -3,21 +3,29 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        User::create([
+            'name' => 'Administrador Alertics',
+            'email' => 'admin@alertics.com',
+            'password' => Hash::make('admin1234'), 
+            'role' => 'admin',
         ]);
+
+        // 2. Creamos un usuario de prueba normal
+        User::create([
+            'name' => 'Usuario de Prueba',
+            'email' => 'user@test.com',
+            'password' => Hash::make('12345678'),
+            'role' => 'user',
+        ]);
+
+        // 3. Llamamos al Seeder de tipos de emergencia
+        $this->call(EmergencyTypeSeeder::class);
     }
 }
