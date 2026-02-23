@@ -20,15 +20,13 @@ $types = computed(fn() => EmergencyType::all());
             'phone' => 'required|min:10',
             'emergency_type_id' => 'required|exists:emergency_types,id',
             'description' => 'required|min:5',
-            'latitude' => 'required', // Si quieres probar sin GPS en PC, cámbialo a 'nullable'
-            'longitude' => 'required', // Si quieres probar sin GPS en PC, cámbialo a 'nullable'
+            'latitude' => 'required', 
+            'longitude' => 'required',
         ], [
             'phone.required' => 'El teléfono es obligatorio para contactarte.',
             'latitude.required' => 'Es necesario obtener tu ubicación GPS.',
         ]);
 
-        // 2. Creación del reporte en la base de datos
-        // Asegúrate de que estos campos estén en el $fillable de tu modelo Report
         App\Models\Report::create([
             'reporter_name' => $this->reporter_name ?: 'Anónimo',
             'phone' => $this->phone,
@@ -49,7 +47,7 @@ $types = computed(fn() => EmergencyType::all());
             'longitude'
         ]);
 
-        // 4. Notificar al usuario (Requiere <flux:toast /> en welcome.blade.php)
+       
         $this->dispatch('toast', message: '¡Alerta enviada correctamente!');
     };
 ?>
@@ -77,7 +75,7 @@ $types = computed(fn() => EmergencyType::all());
                 @endif
             </div>
 
-            <flux:button type="submit" variant="primary" class="w-full py-3">ENVIAR REPORTE</flux:button>
+            <flux:button type="submit" variant="primary" class="w-full py-3 bg-blue-700 hover:bg-blue-800 font-bold">ENVIAR REPORTE</flux:button>
         </form>
     </flux:card>
 
