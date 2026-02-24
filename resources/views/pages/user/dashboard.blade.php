@@ -30,7 +30,7 @@ $myReports = computed(fn() => Report::where('phone', auth()->user()->phone)->lat
                         <flux:table.rows>
                             @forelse ($this->myReports as $report)
                                 <flux:table.row :key="$report->id">
-                                    <flux:table.cell class="text-zinc-600">{{ $report->created_at->format('d/m/Y H:i') }}</flux:table.cell>
+                                    <flux:table.cell class="text-zinc-600">{{ $report->created_at->locale('es')->isoFormat('DD/MM/YYYY HH:mm') }}</flux:table.cell>
                                     <flux:table.cell>
                                         <flux:badge size="sm" color="blue" variant="solid">{{ $report->emergencyType->name }}</flux:badge>
                                     </flux:table.cell>
