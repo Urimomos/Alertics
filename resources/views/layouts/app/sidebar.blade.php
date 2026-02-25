@@ -21,8 +21,21 @@
                     <flux:sidebar.group :heading="__('Plataforma')" class="grid">
                         @if(auth()->user()->role === 'admin')
                             <flux:sidebar.item icon="shield-check" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
-                                Gestión Global
+                                Dashboard
                             </flux:sidebar.item>
+
+                            <flux:sidebar.item icon="map" href="#" class="text-white/90 hover:bg-white/10 rounded-xl">
+                                Mapa de Alarmas
+                            </flux:sidebar.item>
+
+                            <flux:sidebar.item icon="clipboard-document-list" href="#" class="text-white/90 hover:bg-white/10 rounded-xl">
+                                Reportes
+                            </flux:sidebar.item>
+
+                            <flux:sidebar.item icon="adjustments-horizontal" href="#" class="text-white/90 hover:bg-white/10 rounded-xl">
+                                Administración
+                            </flux:sidebar.item>
+
                         @else
                             <flux:sidebar.item icon="home" :href="route('home')" :current="request()->routeIs('home')" wire:navigate>
                                 Mis Reportes
