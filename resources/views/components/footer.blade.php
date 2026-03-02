@@ -14,10 +14,10 @@
             <h4 class="text-white font-bold mb-4">Contacto de Emergencia</h4>
             <ul class="space-y-2 text-sm">
                 <li class="flex items-center gap-2">
-                    <flux:icon.phone size="sm" /> +52 (555) 000-0000
+                    <flux:icon.phone size="sm" /> +52 246 487 8130
                 </li>
                 <li class="flex items-center gap-2">
-                    <flux:icon.envelope size="sm" /> contacto@alertics.com
+                    <flux:icon.envelope size="sm" /> acuamanalapresidencia@gmail.com
                 </li>
             </ul>
         </div>
@@ -25,7 +25,7 @@
         {{-- Finalidad --}}
         <div>
             <h4 class="text-white font-bold mb-4">Ubicación Central</h4>
-            <p class="text-sm">Atención las 24 horas, los 7 días de la semana para una comunidad más segura.</p>
+            <p class="text-sm">Palacio Municipal S/N Centro, Acuamanala de Miguel Hidalgo, Tlaxcala C.P. 90860</p>
         </div>
     </div>
     <div class="border-t border-zinc-800 mt-10 pt-6 text-center text-xs">
