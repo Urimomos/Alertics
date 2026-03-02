@@ -1,5 +1,5 @@
 <?php
-use function Livewire\Volt\{state, computed};
+use function Livewire\Volt\{state, computed, mount};
 use App\Models\Report;
 use App\Models\EmergencyType;
 
@@ -12,44 +12,56 @@ state([
     'longitude' => null,
 ]);
 
+// Lógica para autocompletar el nombre si está logueado
+mount(function () {
+    if (auth()->check()) {
+        $this->reporter_name = auth()->user()->name;
+    }
+});
+
 $types = computed(fn() => EmergencyType::all());
 
-    $save = function () {
-        // 1. Validación de los campos
-        $this->validate([
-            'phone' => 'required|min:10',
-            'emergency_type_id' => 'required|exists:emergency_types,id',
-            'description' => 'required|min:5',
-            'latitude' => 'required', 
-            'longitude' => 'required',
-        ], [
-            'phone.required' => 'El teléfono es obligatorio para contactarte.',
-            'latitude.required' => 'Es necesario obtener tu ubicación GPS.',
-        ]);
+$save = function () {
+    $this->validate([
+        'phone' => 'required|min:10',
+        'emergency_type_id' => 'required|exists:emergency_types,id',
+        'description' => 'required|min:5',
+        'latitude' => 'required', 
+        'longitude' => 'required',
+    ], [
+        'phone.required' => 'El teléfono es obligatorio para contactarte.',
+        'latitude.required' => 'Es necesario obtener tu ubicación GPS.',
+    ]);
 
-        App\Models\Report::create([
-            'reporter_name' => $this->reporter_name ?: 'Anónimo',
-            'phone' => $this->phone,
-            'emergency_type_id' => $this->emergency_type_id,
-            'description' => $this->description,
-            'latitude' => $this->latitude,
-            'longitude' => $this->longitude,
-            'status' => 'pending', // Estado inicial del reporte
-        ]);
+    // GUARDADO CON VÍNCULO DE USUARIO
+    App\Models\Report::create([
+        'user_id' => auth()->id(), // <--- ESTO ES LO QUE ESTABA FALTANDO
+        'reporter_name' => $this->reporter_name ?: (auth()->check() ? auth()->user()->name : 'Anónimo'),
+        'phone' => $this->phone,
+        'emergency_type_id' => $this->emergency_type_id,
+        'description' => $this->description,
+        'latitude' => $this->latitude,
+        'longitude' => $this->longitude,
+        'status' => 'pending',
+    ]);
 
-        // 3. Limpiar el formulario después de guardar
-        $this->reset([
-            'reporter_name', 
-            'phone', 
-            'emergency_type_id', 
-            'description', 
-            'latitude', 
-            'longitude'
-        ]);
+    $this->reset([
+        'reporter_name', 
+        'phone', 
+        'emergency_type_id', 
+        'description', 
+        'latitude', 
+        'longitude'
+    ]);
 
-       
-        $this->dispatch('toast', message: '¡Alerta enviada correctamente!');
-    };
+    // Redirigir al dashboard si es un usuario registrado para que vea su reporte
+    if (auth()->check()) {
+        $this->dispatch('toast', message: '¡Alerta enviada! Redirigiendo a tu historial...');
+        return redirect()->route('user.dashboard');
+    }
+
+    $this->dispatch('toast', message: '¡Alerta enviada correctamente!');
+};
 ?>
 
 <div>

@@ -17,7 +17,8 @@ class Report extends Model
         'description',
         'latitude',
         'longitude',
-        'status', // Recuerda que por defecto es 'pending'
+        'status',
+        'user_id', // Recuerda que por defecto es 'pending'
     ];
 
     // Relación para saber qué tipo de emergencia es
