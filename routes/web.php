@@ -20,6 +20,7 @@ Route::get('/home', function () {
     // Si es admin (Urimomos), va al panel global
     if ($user->role === 'admin') {
         return redirect()->route('dashboard');
+        
     }
 
     // Si es usuario normal, va a su historial de reportes
@@ -38,5 +39,16 @@ Route::get('/dashboard', function () {
 Route::view('my-reports', 'pages.user.dashboard')
     ->middleware(['auth'])
     ->name('user.dashboard');
+
+// 5. Rutas exclusivas para el Administrador
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/mapa-alarmas', function () {
+        // Verificamos que sea admin antes de mostrar la vista
+        if (Auth::user()->role !== 'admin') {
+            return redirect()->route('home');
+        }
+        return view('admin.map-full');
+    })->name('admin.map');
+});
 
 require __DIR__.'/settings.php';

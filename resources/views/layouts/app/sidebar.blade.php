@@ -2,6 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
     <head>
         @include('partials.head')
+        @stack('styles')
     </head>
     <body class="min-h-screen bg-white dark:bg-zinc-800 antialiased font-sans">
         
@@ -24,8 +25,8 @@
                                 Dashboard
                             </flux:sidebar.item>
 
-                            <flux:sidebar.item icon="map" href="#" class="text-white/90 hover:bg-white/10 rounded-xl">
-                                Mapa de Alarmas
+                           <flux:sidebar.item icon="map" :href="route('admin.map')" :current="request()->routeIs('admin.map')" wire:navigate>
+                            Mapa de Alarmas
                             </flux:sidebar.item>
 
                             <flux:sidebar.item icon="clipboard-document-list" href="#" class="text-white/90 hover:bg-white/10 rounded-xl">
@@ -65,5 +66,6 @@
         </div>
 
         @fluxScripts
+        @stack('scripts')
     </body>
 </html>
