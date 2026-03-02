@@ -29,7 +29,7 @@
                             Mapa de Alarmas
                             </flux:sidebar.item>
 
-                            <flux:sidebar.item icon="clipboard-document-list" href="#" class="text-white/90 hover:bg-white/10 rounded-xl">
+                           <flux:sidebar.item icon="clipboard-document-list" :href="route('admin.reports')" :current="request()->routeIs('admin.reports')" wire:navigate>
                                 Reportes
                             </flux:sidebar.item>
 

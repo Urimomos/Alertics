@@ -49,6 +49,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         }
         return view('admin.map-full');
     })->name('admin.map');
+
+    Route::get('/reportes-lista', function () {
+        if (Auth::user()->role !== 'admin') {
+            return redirect()->route('home');
+        }
+        return view('admin.reports-index');
+    })->name('admin.reports');
+
 });
 
 require __DIR__.'/settings.php';
