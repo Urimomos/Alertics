@@ -33,8 +33,14 @@
                                 Reportes
                             </flux:sidebar.item>
 
-                            
-
+                            <flux:navlist.item icon="users" :href="route('admin.users')" :current="request()->routeIs('admin.users')" wire:navigate>
+                                 Usuarios
+                             </flux:navlist.item>
+                         
+                             {{-- GESTIÓN DE EMERGENCIAS --}}
+                             <flux:navlist.item icon="list-bullet" :href="route('admin.emergencies')" :current="request()->routeIs('admin.emergencies')" wire:navigate>
+                                 Tipos de Emergencia
+                             </flux:navlist.item>
                         @else
                             <flux:sidebar.item icon="home" :href="route('home')" :current="request()->routeIs('home')" wire:navigate>
                                 Mis Reportes

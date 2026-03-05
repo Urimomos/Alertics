@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Volt\Volt;
 
 // 1. Página de inicio pública (Formulario de reporte)
 Route::get('/', function () {
@@ -56,6 +57,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
         }
         return view('admin.reports-index');
     })->name('admin.reports');
+
+    Route::get('/reportes-lista', function () {
+        if (Auth::user()->role !== 'admin') {
+            return redirect()->route('home');
+        }
+        return view('admin.reports-index');
+    })->name('admin.reports');
+
+    Volt::route('/emergencias', 'admin.emergency-types-manager')->name('admin.emergencies');
+
+    // Nueva ruta para Gestión de Usuarios
+    Volt::route('/usuarios', 'admin.users-manager')->name('admin.users');
 
 });
 
