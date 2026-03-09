@@ -9,8 +9,10 @@ $reports = computed(fn() => Report::with('emergencyType')
     ->get()
 );
 
-$markAsResolved = function (Report $report) {
-    $report->update(['status' => 'resolved']);
+// Función para actualizar estado rápidamente desde el dashboard si es necesario
+$updateStatus = function (Report $report, $status) {
+    $report->update(['status' => $status]);
+    $this->dispatch('toast', message: 'Estado actualizado.');
 };
 ?>
 
@@ -60,9 +62,13 @@ $markAsResolved = function (Report $report) {
 
                         <flux:table.cell class="pe-6">
                             <div class="flex justify-left">
-                                <flux:badge size="sm" :color="$report->status === 'pending' ? 'red' : 'green'" class="uppercase text-[9px] font-black tracking-tighter">
-                                    {{ $report->status === 'pending' ? 'Activa' : 'Atendida' }}
-                                </flux:badge>
+                                @if($report->status === 'pending')
+                                    <flux:badge size="sm" color="red" class="uppercase text-[9px] font-black tracking-tighter">Activa</flux:badge>
+                                @elseif($report->status === 'processing')
+                                    <flux:badge size="sm" color="amber" class="uppercase text-[9px] font-black tracking-tighter">En Proceso</flux:badge>
+                                @else
+                                    <flux:badge size="sm" color="green" class="uppercase text-[9px] font-black tracking-tighter">Atendida</flux:badge>
+                                @endif
                             </div>
                         </flux:table.cell>
                     </flux:table.row>

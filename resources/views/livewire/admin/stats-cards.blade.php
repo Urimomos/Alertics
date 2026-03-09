@@ -32,7 +32,7 @@ $stats = computed(function () {
                 <flux:icon.wrench variant="outline" />
             </div>
             <div class="text-3xl font-black text-amber-700 dark:text-amber-400 tracking-tighter">{{ $this->stats['en_proceso'] }}</div>
-            <div class="text-[10px] uppercase font-bold text-zinc-500 tracking-widest">En Atención</div>
+            <div class="text-[10px] uppercase font-bold text-zinc-500 tracking-widest">En Proceso</div>
         </flux:card>
 
         {{-- RESUELTAS - VERDE (Finalizado) --}}
